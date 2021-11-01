@@ -10,6 +10,8 @@ public abstract class GameObject {
 
     public abstract void pain(Graphics2D graphics2D);
 
+    public abstract void update();
+
     public int getAngle() {
         return angle;
     }

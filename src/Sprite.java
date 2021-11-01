@@ -4,12 +4,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Bead extends GameObject {
+public abstract class Sprite extends GameObject {
 
     private BufferedImage image;
     private AffineTransform transform;
 
-    public Bead(String imagePath) {
+    public Sprite(String imagePath) {
         try {
             image = ImageIO.read(getClass().getResource(imagePath));
         } catch (IOException e) {

@@ -9,14 +9,28 @@ public class Main {
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Game game = new Game();
-        Bead bead = new Bead("/res/bead.png");
-        bead.setX(500);
-        bead.setY(500);
-        bead.setWidth(50);
-        bead.setHeight(50);
-        bead.setAngle(20);
-        game.addGameObject(bead);
+        Game game = new Game() {
+            @Override
+            protected boolean isGameWin() {
+                return false;
+            }
+
+            @Override
+            protected boolean isGameOver() {
+                return false;
+            }
+
+            @Override
+            protected void showGameOverDialog() {
+
+            }
+
+            @Override
+            protected void showGameWinDialog() {
+
+            }
+        };
+        game.start();
         frame.add(game, BorderLayout.CENTER);
         frame.invalidate();
         frame.repaint();
