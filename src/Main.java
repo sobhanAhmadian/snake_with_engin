@@ -1,4 +1,5 @@
 import gameEngine.Game;
+import snake.SnakeGame;
 
 import javax.swing.*;
 import java.awt.*;
