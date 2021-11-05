@@ -2,10 +2,7 @@ package gameEngine;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +20,9 @@ public abstract class Game extends JPanel {
         setSize(1000, 600);
         addKeyListener(new KeyHandler());
         addMouseListener(new MouseHandler());
+        addComponentListener(new ComponentHandler());
+        setFocusable(true);
+        requestFocusInWindow();
         gameObjects = new ArrayList<>();
         repaint();
     }
@@ -127,6 +127,30 @@ public abstract class Game extends JPanel {
                 gameListener.onRightMouseButtonClicked(e.getX(), e.getY());
         }
     }
+
+    private class ComponentHandler implements ComponentListener {
+
+        @Override
+        public void componentResized(ComponentEvent e) {
+            requestFocus();
+        }
+
+        @Override
+        public void componentMoved(ComponentEvent e) {
+            requestFocus();
+        }
+
+        @Override
+        public void componentShown(ComponentEvent e) {
+            requestFocus();
+        }
+
+        @Override
+        public void componentHidden(ComponentEvent e) {
+
+        }
+    }
+
 
     @Override
     public void paint(Graphics g) {
