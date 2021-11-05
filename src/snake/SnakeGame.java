@@ -9,17 +9,11 @@ public class SnakeGame extends Game {
     public static final int START_Y = 300;
     public static final int BEAD_SIZE = 50;
 
-    public static int speed = 1;
+    private Snake snake;
 
     public SnakeGame() {
-        Bead bead = new Bead("/res/bead.png", Bead.Type.HEAD);
-        bead.setX(100);
-        bead.setY(100);
-        bead.setWidth(50);
-        bead.setHeight(50);
-        bead.setxStep(1);
-        bead.setyStep(1);
-        addGameObject(bead);
+        snake = new Snake(this::addGameObject);
+        setGameListener(new SnakeGameListener(snake));
     }
 
     @Override
@@ -40,5 +34,9 @@ public class SnakeGame extends Game {
     @Override
     protected void showGameWinDialog() {
 
+    }
+
+    interface Callback {
+        void addBead(Bead bead);
     }
 }

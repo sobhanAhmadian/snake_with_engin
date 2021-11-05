@@ -7,9 +7,12 @@ import java.util.List;
 
 public class Snake {
 
+    public static int speed = 1;
     private List<Bead> beads;
+    private SnakeGame.Callback callback;
 
-    public Snake() {
+    public Snake(SnakeGame.Callback callback) {
+        this.callback = callback;
         beads = new ArrayList<>();
 
         Bead head = new Bead("/res/head.png", Bead.Type.HEAD);
@@ -17,6 +20,7 @@ public class Snake {
         head.setY(SnakeGame.START_Y);
         head.setDirection(Bead.Direction.UP);
         beads.add(head);
+        this.callback.addBead(head);
     }
 
     public void addBead() {
@@ -43,9 +47,14 @@ public class Snake {
                 break;
         }
         beads.add(bead);
+        callback.addBead(bead);
     }
 
     private Bead getEndBead() {
         return beads.get(beads.size() - 1);
+    }
+
+    public Bead getHead() {
+        return beads.get(0);
     }
 }

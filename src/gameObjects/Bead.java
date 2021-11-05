@@ -1,6 +1,7 @@
 package gameObjects;
 
 import gameEngine.AutoMoverSprite;
+import snake.Snake;
 import snake.SnakeGame;
 
 public class Bead extends AutoMoverSprite {
@@ -28,19 +29,19 @@ public class Bead extends AutoMoverSprite {
         this.direction = direction;
         switch (direction) {
             case UP:
-                setyStep(SnakeGame.speed);
+                setyStep(-1 * Snake.speed);
                 setxStep(0);
                 break;
             case DOWN:
-                setyStep(-1 * SnakeGame.speed);
+                setyStep(Snake.speed);
                 setxStep(0);
                 break;
             case LEFT:
-                setxStep(-1 * SnakeGame.speed);
+                setxStep(-1 * Snake.speed);
                 setyStep(0);
                 break;
             case RIGHT:
-                setxStep(SnakeGame.speed);
+                setxStep(Snake.speed);
                 setyStep(0);
                 break;
         }
