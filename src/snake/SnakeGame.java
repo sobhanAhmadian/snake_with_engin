@@ -1,7 +1,6 @@
 package snake;
 
 import gameEngine.Game;
-import gameObjects.Bead;
 
 public class SnakeGame extends Game {
 
@@ -10,10 +9,18 @@ public class SnakeGame extends Game {
     public static final int BEAD_SIZE = 50;
 
     private Snake snake;
+    private SeedGenerator seedGenerator;
 
-    public SnakeGame() {
+    public SnakeGame(int width, int height) {
+        super(width, height);
         snake = new Snake(this::addGameObject);
+        seedGenerator = new SeedGenerator(this::addGameObject, () -> snake.beadPositions(), getWidth(), getHeight());
         setGameListener(new SnakeGameListener(snake));
+    }
+
+    @Override
+    protected void updateGame() {
+
     }
 
     @Override
@@ -34,9 +41,5 @@ public class SnakeGame extends Game {
     @Override
     protected void showGameWinDialog() {
 
-    }
-
-    interface Callback {
-        void addBead(Bead bead);
     }
 }

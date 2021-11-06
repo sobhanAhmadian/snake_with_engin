@@ -14,17 +14,22 @@ public abstract class Game extends JPanel {
     private boolean gameWin;
     private boolean gameOver;
     private boolean gameStop;
+    private int width;
+    private int height;
 
-    public Game() {
+    public Game(int width, int height) {
+
+        this.width = width;
+        this.height = height;
+
         setVisible(true);
-        setSize(1000, 600);
+        setSize(width, height);
         addKeyListener(new KeyHandler());
         addMouseListener(new MouseHandler());
         addComponentListener(new ComponentHandler());
-        setFocusable(true);
-        requestFocusInWindow();
         gameObjects = new ArrayList<>();
-        repaint();
+        setFocusable(true);
+        requestFocus();
     }
 
     public void start() {
@@ -70,6 +75,7 @@ public abstract class Game extends JPanel {
             for (GameObject gameObject :
                     gameObjects) {
                 gameObject.update();
+                updateGame();
             }
 
             gameOver = isGameOver();
@@ -77,6 +83,8 @@ public abstract class Game extends JPanel {
             saveGame();
         }
     }
+
+    protected abstract void updateGame();
 
     protected abstract boolean isGameWin();
 
@@ -151,7 +159,6 @@ public abstract class Game extends JPanel {
         }
     }
 
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -183,5 +190,23 @@ public abstract class Game extends JPanel {
 
     public void setGameListener(GameListener gameListener) {
         this.gameListener = gameListener;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

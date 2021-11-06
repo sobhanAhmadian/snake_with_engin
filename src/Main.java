@@ -12,10 +12,9 @@ public class Main {
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Game game = new SnakeGame();
+        Game game = new SnakeGame(1000, 600);
         game.start();
         frame.add(game, BorderLayout.CENTER);
-        frame.invalidate();
-        frame.repaint();
+        frame.getContentPane().validate();
     }
 }

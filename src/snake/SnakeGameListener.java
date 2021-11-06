@@ -33,7 +33,6 @@ public class SnakeGameListener implements GameListener {
 
     @Override
     public void onSpaceButtonClicked() {
-        Snake.speed = 0;
     }
 
     @Override
