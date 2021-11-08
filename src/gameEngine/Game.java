@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class Game extends JPanel {
 
-    private static final long DELAY = 20;
+    private static final long DELAY = 5;
     private final List<GameObject> gameObjects;
     private GameListener gameListener;
     private boolean gameWin;
@@ -16,11 +16,13 @@ public abstract class Game extends JPanel {
     private boolean gameStop;
     private int width;
     private int height;
+    private Color backgroundColor;
 
-    public Game(int width, int height) {
+    public Game(int width, int height, Color backgroundColor) {
 
         this.width = width;
         this.height = height;
+        this.backgroundColor = backgroundColor;
 
         setVisible(true);
         setSize(width, height);
@@ -75,8 +77,8 @@ public abstract class Game extends JPanel {
             for (GameObject gameObject :
                     gameObjects) {
                 gameObject.update();
-                updateGame();
             }
+            updateGame();
 
             gameOver = isGameOver();
             gameWin = isGameWin();
@@ -163,6 +165,8 @@ public abstract class Game extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D graphics2D = (Graphics2D) g;
+        g.setColor(backgroundColor);
+        g.fillRect(0, 0, getWidth(), getHeight());
         for (GameObject gameObject :
                 gameObjects) {
             gameObject.pain(graphics2D);

@@ -11,12 +11,13 @@ public class Bead extends AutoMoverSprite {
     public enum Direction {UP, DOWN, LEFT, RIGHT}
 
     private Type type;
-
+    private Bead parentBead;
     private Direction direction;
 
-    public Bead(String imagePath, Type type) {
+    public Bead(String imagePath, Type type, Bead parentBead) {
         super(imagePath);
         this.type = type;
+        this.parentBead = parentBead;
         setHeight(SnakeGame.BEAD_SIZE);
         setWidth(SnakeGame.BEAD_SIZE);
     }
@@ -45,5 +46,19 @@ public class Bead extends AutoMoverSprite {
                 setyStep(0);
                 break;
         }
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if (parentBead != null) {
+            if (getDirection() == Direction.RIGHT || getDirection() == Direction.LEFT)
+                if (getX() == parentBead.getX())
+                    setDirection(parentBead.getDirection());
+            if (getDirection() == Direction.UP || getDirection() == Direction.DOWN)
+                if (getY() == parentBead.getY())
+                    setDirection(parentBead.getDirection());
+        }
+
     }
 }

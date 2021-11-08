@@ -16,7 +16,7 @@ public class Snake {
         this.callback = callback;
         beads = new ArrayList<>();
 
-        Bead head = new Bead("/res/head.png", Bead.Type.HEAD);
+        Bead head = new Bead("/res/head.png", Bead.Type.HEAD, null);
         head.setX(SnakeGame.START_X + 10);
         head.setY(SnakeGame.START_Y);
         head.setDirection(Bead.Direction.UP);
@@ -25,7 +25,7 @@ public class Snake {
     }
 
     public void addBead() {
-        Bead bead = new Bead("/res/bead.png", Bead.Type.BODY);
+        Bead bead = new Bead("/res/bead.png", Bead.Type.BODY, getEndBead());
 
         Bead parentBead = getEndBead();
         bead.setDirection(parentBead.getDirection());
@@ -59,9 +59,17 @@ public class Snake {
         return beads.get(0);
     }
 
+    public Bead getNeck() {
+        if (beads.size() < 2) return null;
+        return beads.get(1);
+    }
+
     public List<Pair<Integer, Integer>> beadPositions() {
         List<Pair<Integer, Integer>> list = new ArrayList<>();
-        //TODO
+        for (Bead bead :
+                beads) {
+            list.add(new Pair<>(bead.getX(), bead.getY()));
+        }
         return list;
     }
 

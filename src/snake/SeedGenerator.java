@@ -32,9 +32,9 @@ public class SeedGenerator {
     }
 
     public boolean checkSeedCollision(int x, int y) {
-        return y > seed.getY() &&
+        return y > seed.getY() - SnakeGame.BEAD_SIZE &&
                 y < seed.getY() + SEED_SIZE &&
-                x > seed.getX() &&
+                x > seed.getX() - SnakeGame.BEAD_SIZE &&
                 x < seed.getX() + SEED_SIZE;
     }
 
@@ -44,8 +44,13 @@ public class SeedGenerator {
 
         for (Pair<Integer, Integer> position :
                 positionChecker.positions()) {
-            //TODO
+            if (x < position.getF() + SnakeGame.BEAD_SIZE && x > position.getF())
+                if (y < position.getS() + SnakeGame.BEAD_SIZE && y > position.getS())
+                    changeSeedPosition();
         }
+
+        seed.setX(x);
+        seed.setY(y);
     }
 
     interface PositionChecker {
