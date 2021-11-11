@@ -42,15 +42,23 @@ public class SeedGenerator {
         int x = random.nextInt(boardWidth - SEED_SIZE);
         int y = random.nextInt(boardHeight - SEED_SIZE);
 
-        for (Pair<Integer, Integer> position :
-                positionChecker.positions()) {
-            if (x < position.getF() + SnakeGame.BEAD_SIZE && x > position.getF())
-                if (y < position.getS() + SnakeGame.BEAD_SIZE && y > position.getS())
-                    changeSeedPosition();
+        while (!isPositionEmpty(x, y)) {
+            x = random.nextInt(boardWidth - SEED_SIZE);
+            y = random.nextInt(boardHeight - SEED_SIZE);
         }
 
         seed.setX(x);
         seed.setY(y);
+    }
+
+    private boolean isPositionEmpty(int x, int y) {
+        for (Pair<Integer, Integer> position :
+                positionChecker.positions()) {
+            if (position.getF() < x + 2 * SEED_SIZE && position.getF() > x - SEED_SIZE)
+                if (position.getS() < y + 2 * SEED_SIZE && position.getS() > y - SEED_SIZE)
+                    return false;
+        }
+        return true;
     }
 
     interface PositionChecker {

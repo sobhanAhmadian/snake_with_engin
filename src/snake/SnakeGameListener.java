@@ -67,19 +67,13 @@ public class SnakeGameListener implements GameListener {
         switch (direction) {
             case UP:
             case DOWN:
-                if (head.getX() > neck.getX() &&
+                if (head.getX() > neck.getX() - neck.getHeight() &&
                         head.getX() < neck.getX() + neck.getWidth())
-                    return true;
-                if (head.getX() + head.getWidth() > neck.getX() &&
-                        head.getX() + head.getWidth() < neck.getX() + neck.getWidth())
                     return true;
                 break;
             case RIGHT:
             case LEFT:
-                if (head.getY() + head.getHeight() > neck.getY() &&
-                        head.getY() + head.getHeight() < neck.getY() + neck.getHeight())
-                    return true;
-                if (head.getY() > neck.getY() &&
+                if (head.getY() > neck.getY() - neck.getHeight() &&
                         head.getY() < neck.getY() + neck.getHeight())
                     return true;
                 break;

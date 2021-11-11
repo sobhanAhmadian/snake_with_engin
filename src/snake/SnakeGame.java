@@ -10,8 +10,8 @@ public class SnakeGame extends Game {
     public static final int START_Y = 300;
     public static final int BEAD_SIZE = 50;
 
-    private Snake snake;
-    private SeedGenerator seedGenerator;
+    private final Snake snake;
+    private final SeedGenerator seedGenerator;
 
     public SnakeGame(int width, int height) {
         super(width, height, Color.getColor("#212121"));

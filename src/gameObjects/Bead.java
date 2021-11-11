@@ -54,10 +54,12 @@ public class Bead extends AutoMoverSprite {
         if (parentBead != null) {
             if (getDirection() == Direction.RIGHT || getDirection() == Direction.LEFT)
                 if (getX() == parentBead.getX())
-                    setDirection(parentBead.getDirection());
+                    if (parentBead.getY() < getY()) setDirection(Direction.UP);
+                    else setDirection(Direction.DOWN);
             if (getDirection() == Direction.UP || getDirection() == Direction.DOWN)
                 if (getY() == parentBead.getY())
-                    setDirection(parentBead.getDirection());
+                    if (parentBead.getX() < getX()) setDirection(Direction.LEFT);
+                    else setDirection(Direction.RIGHT);
         }
 
     }
