@@ -12,6 +12,9 @@ public class SnakeGame extends Game {
 
     private final Snake snake;
     private final SeedGenerator seedGenerator;
+    private boolean gameStop;
+    private boolean gameWin;
+    private boolean gameOver;
 
     public SnakeGame(int width, int height) {
         super(width, height, Color.getColor("#212121"));
@@ -20,7 +23,7 @@ public class SnakeGame extends Game {
         setGameListener(new SnakeGameListener(snake, new SnakeGameListener.Stopper() {
             @Override
             public void stop(boolean b) {
-                setGameStop(b);
+                gameStop = b;
             }
 
             @Override
@@ -32,6 +35,10 @@ public class SnakeGame extends Game {
 
     @Override
     protected void updateGame() {
+
+        if (snake.hasHeadCollisionWithBody())
+            gameOver = true;
+
         if (seedGenerator.checkSeedCollision(snake.getHead().getX(), snake.getHead().getY())) {
             seedGenerator.changeSeedPosition();
             snake.addBead();
@@ -40,12 +47,17 @@ public class SnakeGame extends Game {
 
     @Override
     protected boolean isGameWin() {
-        return false;
+        return gameWin;
     }
 
     @Override
     protected boolean isGameOver() {
-        return false;
+        return gameOver;
+    }
+
+    @Override
+    protected boolean isGameStop() {
+        return gameStop;
     }
 
     @Override

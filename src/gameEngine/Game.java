@@ -11,9 +11,6 @@ public abstract class Game extends JPanel {
     private static final long DELAY = 5;
     private final List<GameObject> gameObjects;
     private GameListener gameListener;
-    private boolean gameWin;
-    private boolean gameOver;
-    private boolean gameStop;
     private int width;
     private int height;
     private Color backgroundColor;
@@ -46,12 +43,12 @@ public abstract class Game extends JPanel {
 
         while (true) {
 
-            if (gameWin) {
+            if (isGameWin()) {
 
                 showGameWinDialog();
                 clearCache();
                 break;
-            } else if (gameOver) {
+            } else if (isGameOver()) {
 
                 showGameOverDialog();
                 clearCache();
@@ -72,7 +69,7 @@ public abstract class Game extends JPanel {
             beforeTime = System.currentTimeMillis();
             repaint();
 
-            if (gameStop) continue;
+            if (isGameStop()) continue;
 
             for (GameObject gameObject :
                     gameObjects) {
@@ -80,8 +77,6 @@ public abstract class Game extends JPanel {
             }
             updateGame();
 
-            gameOver = isGameOver();
-            gameWin = isGameWin();
             saveGame();
         }
     }
@@ -91,6 +86,8 @@ public abstract class Game extends JPanel {
     protected abstract boolean isGameWin();
 
     protected abstract boolean isGameOver();
+
+    protected abstract boolean isGameStop();
 
     protected abstract void showGameOverDialog();
 
@@ -175,22 +172,6 @@ public abstract class Game extends JPanel {
     }
 
     // setter and getter functions
-
-    public void setGameWin(boolean gameWin) {
-        this.gameWin = gameWin;
-    }
-
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
-    }
-
-    public boolean isGameStop() {
-        return gameStop;
-    }
-
-    public void setGameStop(boolean gameStop) {
-        this.gameStop = gameStop;
-    }
 
     public void setGameListener(GameListener gameListener) {
         this.gameListener = gameListener;

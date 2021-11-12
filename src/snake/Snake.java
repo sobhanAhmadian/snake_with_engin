@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Snake {
 
+    private static final int PADDING = 0;
     public static int speed = 1;
     private List<Bead> beads;
     private Callback callback;
@@ -71,6 +72,54 @@ public class Snake {
             list.add(new Pair<>(bead.getX(), bead.getY()));
         }
         return list;
+    }
+
+    public boolean hasHeadCollisionWithBody() {
+        Bead head = getHead();
+        switch (head.getDirection()) {
+            case UP:
+                for (int i = 1; i < beads.size(); i++) {
+                    int x = beads.get(i).getX();
+                    int y = beads.get(i).getY();
+
+                    if (head.getX() < x + SnakeGame.BEAD_SIZE - PADDING && head.getX() > x - SnakeGame.BEAD_SIZE + PADDING)
+                        if (head.getY() < y + SnakeGame.BEAD_SIZE - PADDING && head.getY() > y + PADDING)
+                            return true;
+                }
+                break;
+            case DOWN:
+                for (int i = 1; i < beads.size(); i++) {
+                    int x = beads.get(i).getX();
+                    int y = beads.get(i).getY();
+
+                    if (head.getX() < x + SnakeGame.BEAD_SIZE - PADDING && head.getX() > x + PADDING)
+                        if (head.getY() < y - PADDING && head.getY() > y - SnakeGame.BEAD_SIZE + PADDING)
+                            return true;
+                }
+                break;
+            case LEFT:
+                for (int i = 1; i < beads.size(); i++) {
+                    int x = beads.get(i).getX();
+                    int y = beads.get(i).getY();
+
+                    if (head.getX() < x + SnakeGame.BEAD_SIZE - PADDING && head.getX() > x + PADDING)
+                        if (head.getY() < y + SnakeGame.BEAD_SIZE - PADDING && head.getY() > y - SnakeGame.BEAD_SIZE + PADDING)
+                            return true;
+                }
+                break;
+            case RIGHT:
+                for (int i = 1; i < beads.size(); i++) {
+                    int x = beads.get(i).getX();
+                    int y = beads.get(i).getY();
+
+                    if (head.getX() < x - PADDING && head.getX() > x - SnakeGame.BEAD_SIZE + PADDING)
+                        if (head.getY() < y + SnakeGame.BEAD_SIZE - PADDING && head.getY() > y - SnakeGame.BEAD_SIZE + PADDING)
+                            return true;
+                }
+                break;
+
+        }
+        return false;
     }
 
     interface Callback {
