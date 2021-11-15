@@ -61,12 +61,12 @@ public class SnakeGame extends Game {
     }
 
     @Override
-    protected void showGameOverDialog() {
+    protected void showGameOverDialog(int a) {
 
     }
 
     @Override
-    protected void showGameWinDialog() {
+    protected void showGameWinDialog(int a) {
 
     }
 }

@@ -1,5 +1,9 @@
 package gameEngine;
 
+import gameUI.dialogue.GameOverDialog;
+import gameUI.dialogue.GameWinDialog;
+
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +17,10 @@ public abstract class Game extends JPanel {
     private GameListener gameListener;
     private int width;
     private int height;
-    private Color backgroundColor;
+    private final Color backgroundColor;
+    private Clip clip_for_gameOver;
+    private Clip clip_for_gameWin;
+    private Clip clip_for_gaming;
 
     public Game(int width, int height, Color backgroundColor) {
 
@@ -89,9 +96,44 @@ public abstract class Game extends JPanel {
 
     protected abstract boolean isGameStop();
 
-    protected abstract void showGameOverDialog();
+    protected abstract void showGameOverDialog(int a);
 
-    protected abstract void showGameWinDialog();
+    protected abstract void showGameWinDialog(int a);
+
+    private void showGameWinDialog() {
+
+        repaint();
+/*
+        clip_for_gaming.stop();
+        clip_for_gameWin.start();
+*/
+
+        new GameWinDialog(
+                this,
+                actionEvent -> System.out.println("home"), // TODO: 11/15/21  
+                actionEvent -> System.out.println("next level") // TODO: 11/15/21  
+        );
+    }
+
+    private void showGameOverDialog() {
+
+        repaint();
+//        clip_for_gaming.stop();
+//        clip_for_gameOver.start();
+
+        new GameOverDialog(
+                this,
+                actionEvent -> repeatGame()
+        );
+    }
+
+    private void repeatGame() {
+
+        // TODO: 11/15/21  
+//        clip_for_gaming.close();
+//        clip_for_gameWin.close();
+//        clip_for_gameOver.close();
+    }
 
     private void clearCache() {
 

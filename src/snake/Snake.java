@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Snake {
 
-    private static final int PADDING = 0;
+    private static final int PADDING = 3;
     public static int speed = 1;
     private List<Bead> beads;
     private Callback callback;
