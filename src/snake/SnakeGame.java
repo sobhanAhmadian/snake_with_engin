@@ -17,9 +17,13 @@ public class SnakeGame extends Game {
     private boolean gameOver;
 
     public SnakeGame(int width, int height) {
-        super(width, height, Color.getColor("#212121"));
+        super(width, height,
+                Color.getColor("#212121"),
+                "/res/game_over_audio.wav",
+                "/res/game_win_audio.wav",
+                "/res/game_audio.wav");
         snake = new Snake(this::addGameObject);
-        seedGenerator = new SeedGenerator(this::addGameObject, () -> snake.beadPositions(), getWidth(), getHeight());
+        seedGenerator = new SeedGenerator(this::addGameObject, snake::beadPositions, getWidth(), getHeight());
         setGameListener(new SnakeGameListener(snake, new SnakeGameListener.Stopper() {
             @Override
             public void stop(boolean b) {
@@ -58,15 +62,5 @@ public class SnakeGame extends Game {
     @Override
     protected boolean isGameStop() {
         return gameStop;
-    }
-
-    @Override
-    protected void showGameOverDialog(int a) {
-
-    }
-
-    @Override
-    protected void showGameWinDialog(int a) {
-
     }
 }

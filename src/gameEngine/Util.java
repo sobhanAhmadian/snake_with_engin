@@ -1,5 +1,7 @@
 package gameEngine;
 
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -17,5 +19,11 @@ public class Util {
         g2d.dispose();
 
         return image;
+    }
+
+    public static void setVolume(Clip clip, double gain) {
+        FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+        volume.setValue(dB);
     }
 }
