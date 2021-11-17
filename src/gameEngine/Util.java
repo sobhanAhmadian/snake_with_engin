@@ -20,10 +20,4 @@ public class Util {
 
         return image;
     }
-
-    public static void setVolume(Clip clip, double gain) {
-        FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-        volume.setValue(dB);
-    }
 }

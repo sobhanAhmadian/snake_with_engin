@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 public class Dialog extends JFrame {
@@ -34,6 +35,10 @@ public class Dialog extends JFrame {
         rightButton = new JButton(rightButtonText);
         leftButton.addActionListener(leftListener);
         rightButton.addActionListener(rightListener);
+        leftButton.addActionListener(actionEvent ->
+                dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
+        rightButton.addActionListener(actionEvent ->
+                dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
 
         buttonPanel = new JPanel();
         GridLayout buttonsLayout = new GridLayout(1, 2);

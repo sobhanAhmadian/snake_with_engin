@@ -1,17 +1,17 @@
 package snake;
 
-import gameEngine.Game;
+import gameEngine.GameEngine;
 
 import java.awt.*;
 
-public class SnakeGame extends Game {
+public class SnakeGame extends GameEngine {
 
     public static final int START_X = 500;
     public static final int START_Y = 300;
     public static final int BEAD_SIZE = 50;
 
-    private final Snake snake;
-    private final SeedGenerator seedGenerator;
+    private Snake snake;
+    private SeedGenerator seedGenerator;
     private boolean gameStop;
     private boolean gameWin;
     private boolean gameOver;
@@ -22,19 +22,6 @@ public class SnakeGame extends Game {
                 "/res/game_over_audio.wav",
                 "/res/game_win_audio.wav",
                 "/res/game_audio.wav");
-        snake = new Snake(this::addGameObject);
-        seedGenerator = new SeedGenerator(this::addGameObject, snake::beadPositions, getWidth(), getHeight());
-        setGameListener(new SnakeGameListener(snake, new SnakeGameListener.Stopper() {
-            @Override
-            public void stop(boolean b) {
-                gameStop = b;
-            }
-
-            @Override
-            public boolean isStop() {
-                return isGameStop();
-            }
-        }));
     }
 
     @Override
@@ -62,5 +49,25 @@ public class SnakeGame extends Game {
     @Override
     protected boolean isGameStop() {
         return gameStop;
+    }
+
+    @Override
+    protected void initialGame() {
+        snake = new Snake(this::addGameObject);
+        seedGenerator = new SeedGenerator(this::addGameObject, snake::beadPositions, getWidth(), getHeight());
+        setGameListener(new SnakeGameListener(snake, new SnakeGameListener.Stopper() {
+            @Override
+            public void stop(boolean b) {
+                gameStop = b;
+            }
+
+            @Override
+            public boolean isStop() {
+                return isGameStop();
+            }
+        }));
+        gameOver = false;
+        gameWin = false;
+        gameStop = false;
     }
 }

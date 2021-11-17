@@ -1,4 +1,4 @@
-import gameEngine.Game;
+import gameEngine.GameEngine;
 import snake.SnakeGame;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ public class Main {
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Game game = new SnakeGame(1000, 600);
+        GameEngine game = new SnakeGame(1000, 600);
         game.start();
         frame.add(game, BorderLayout.CENTER);
         frame.getContentPane().validate();
