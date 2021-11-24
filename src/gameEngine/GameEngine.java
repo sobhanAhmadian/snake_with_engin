@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class GameEngine extends Game {
 
@@ -47,6 +48,7 @@ public abstract class GameEngine extends Game {
 
     @Override
     public void start() {
+        requestFocus();
         Thread gameThread = new Thread(this::play);
         gameThread.start();
     }
@@ -164,18 +166,18 @@ public abstract class GameEngine extends Game {
     private void loadAudio() {
         try {
             AudioInputStream music_for_gaming = AudioSystem.getAudioInputStream(
-                    getClass().getResource(gameAudioPath));
+                    Objects.requireNonNull(getClass().getResource(gameAudioPath)));
             clip_for_gaming = AudioSystem.getClip();
             clip_for_gaming.open(music_for_gaming);
             clip_for_gaming.loop(Clip.LOOP_CONTINUOUSLY);
 
             AudioInputStream music_for_gameOver = AudioSystem.getAudioInputStream(
-                    getClass().getResource(gameOverAudioPath));
+                    Objects.requireNonNull(getClass().getResource(gameOverAudioPath)));
             clip_for_gameOver = AudioSystem.getClip();
             clip_for_gameOver.open(music_for_gameOver);
 
             AudioInputStream music_for_gameWin = AudioSystem.getAudioInputStream(
-                    getClass().getResource(gameWinAudioPath)
+                    Objects.requireNonNull(getClass().getResource(gameWinAudioPath))
             );
             clip_for_gameWin = AudioSystem.getClip();
             clip_for_gameWin.open(music_for_gameWin);

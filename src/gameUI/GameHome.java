@@ -3,42 +3,66 @@ package gameUI;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class GameHome extends JPanel {
 
     private BufferedImage backgroundImage;
     private int width;
     private int height;
+    private Runner runner;
 
     public GameHome(String backgroundPath, int width, int height) {
         this.width = width;
         this.height = height;
-        setBackground(Color.GRAY);
 
         try {
-            backgroundImage = ImageIO.read(getClass().getResource(backgroundPath));
-
-//            BufferedImage tThumbImage = new BufferedImage( width, height, BufferedImage.TYPE_INT_RGB );
-//            Graphics2D tGraphics2D = tThumbImage.createGraphics(); //create a graphics object to paint to
-//            tGraphics2D.setBackground( Color.WHITE );
-//            tGraphics2D.setPaint( Color.WHITE );
-//            tGraphics2D.fillRect( 0, 0, width, height );
-//            tGraphics2D.setRenderingHint( RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR );
-//            tGraphics2D.drawImage( backgroundImage, 0, 0, width, height, null ); //draw the image scaled
-//
-//            ImageIO.write( tThumbImage, "JPG", tThumbnailTarget ); //write the image to a file
+            backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        setLayout(new GridBagLayout());
+        JLabel run = new JLabel();
+        Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/run.png")));
+        Icon clickedIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/run_clicked.png")));
+        run.setIcon(icon);
+        run.setSize(128, 128);
+        run.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                run.setIcon(clickedIcon);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                run.setIcon(icon);
+                if (runner != null)
+                    runner.run();
+            }
+        });
+        add(run, new GridBagConstraints());
     }
 
 
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponents(g);
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.drawImage(backgroundImage, 0, 0, width, height, null);
+    }
+
+    public void setRunner(Runner runner) {
+        this.runner = runner;
+    }
+
+    interface Runner {
+        void run();
     }
 }

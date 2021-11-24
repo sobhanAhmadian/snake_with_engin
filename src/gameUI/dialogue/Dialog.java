@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Dialog extends JFrame {
 
@@ -33,6 +34,10 @@ public class Dialog extends JFrame {
 
         leftButton = new JButton(leftButtonText);
         rightButton = new JButton(rightButtonText);
+        leftButton.setOpaque(true);
+        rightButton.setOpaque(true);
+        leftButton.setBorderPainted(false);
+        rightButton.setBorderPainted(false);
         leftButton.addActionListener(leftListener);
         rightButton.addActionListener(rightListener);
         leftButton.addActionListener(actionEvent ->
@@ -92,7 +97,7 @@ public class Dialog extends JFrame {
     private void loadFont() {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT,
-                    getClass().getResourceAsStream("/gameEngine/res/comics.ttf")).deriveFont(18f);
+                    Objects.requireNonNull(getClass().getResourceAsStream("/gameEngine/res/comics.ttf"))).deriveFont(18f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
         } catch (IOException | FontFormatException e) {

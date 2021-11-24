@@ -18,7 +18,7 @@ public class SnakeGame extends GameEngine {
 
     public SnakeGame(int width, int height) {
         super(width, height,
-                Color.getColor("#212121"),
+                new Color(33, 33, 33),
                 "/res/game_over_audio.wav",
                 "/res/game_win_audio.wav",
                 "/res/game_audio.wav");

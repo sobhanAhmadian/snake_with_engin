@@ -10,18 +10,25 @@ public class GameFrame extends JFrame {
     private Game game;
     private GameHome gameHome;
 
-    public GameFrame(int width, int height, Color background,
+    public GameFrame(int width, int height,
                      Game game, GameHome gameHome) {
         this.game = game;
         this.gameHome = gameHome;
         setSize(width, height);
-        getContentPane().setBackground(background);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        gameHome.setRunner(this::runGame);
         add(gameHome, BorderLayout.CENTER);
 
         setVisible(true);
+    }
+
+    private void runGame() {
+        remove(gameHome);
+        add(game);
+        game.start();
     }
 
 

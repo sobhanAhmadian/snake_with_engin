@@ -1,17 +1,16 @@
 package gameUI;
 
+import gameUI.dialogue.GameOverDialog;
 import org.junit.jupiter.api.Test;
 import snake.SnakeGame;
-
-import java.awt.*;
 
 class GameHomeTest {
 
     @Test
     public void test() {
-        GameHome gameHome = new GameHome("/res/snake_back.jpg", 1000, 570);
+        GameHome gameHome = new GameHome("/res/background.jpg", 1000, 575);
         SnakeGame game = new SnakeGame(1000, 600);
-        GameFrame frame = new GameFrame(1000, 600, Color.gray, game, gameHome);
+        GameFrame frame = new GameFrame(1000, 600, game, gameHome);
         while (true) ;
     }
 
