@@ -1,6 +1,7 @@
 package snake;
 
-import gameEngine.GameEngine;
+import gameLibrary.gameEngine.GameEngine;
+import gameLibrary.gameEngine.level.LevelHandler;
 
 import java.awt.*;
 
@@ -13,8 +14,9 @@ public class SnakeGame extends GameEngine {
     private Snake snake;
     private SeedGenerator seedGenerator;
     private boolean gameStop;
-    private boolean gameWin;
     private boolean gameOver;
+    private final SnakeLevel snakeLevel;
+    private int eatenSeeds;
 
     public SnakeGame(int width, int height) {
         super(width, height,
@@ -22,6 +24,23 @@ public class SnakeGame extends GameEngine {
                 "/res/game_over_audio.wav",
                 "/res/game_win_audio.wav",
                 "/res/game_audio.wav");
+
+        snake = new Snake(this::addGameObject);
+        seedGenerator = new SeedGenerator(this::addGameObject, snake::beadPositions, getWidth(), getHeight());
+        setGameListener(new SnakeGameListener(snake, new SnakeGameListener.Stopper() {
+            @Override
+            public void stop(boolean b) {
+                gameStop = b;
+            }
+
+            @Override
+            public boolean isStop() {
+                return isGameStop();
+            }
+        }));
+
+        snakeLevel = LevelHandler.<SnakeLevel>getLevelHandler().getCurrentLevel();
+        setDelay(snakeLevel.getDelay());
     }
 
     @Override
@@ -33,12 +52,13 @@ public class SnakeGame extends GameEngine {
         if (seedGenerator.checkSeedCollision(snake.getHead().getX(), snake.getHead().getY())) {
             seedGenerator.changeSeedPosition();
             snake.addBead();
+            eatenSeeds++;
         }
     }
 
     @Override
     protected boolean isGameWin() {
-        return gameWin;
+        return eatenSeeds == snakeLevel.getTotalSeeds();
     }
 
     @Override
@@ -53,21 +73,16 @@ public class SnakeGame extends GameEngine {
 
     @Override
     protected void initialGame() {
-        snake = new Snake(this::addGameObject);
-        seedGenerator = new SeedGenerator(this::addGameObject, snake::beadPositions, getWidth(), getHeight());
-        setGameListener(new SnakeGameListener(snake, new SnakeGameListener.Stopper() {
-            @Override
-            public void stop(boolean b) {
-                gameStop = b;
-            }
-
-            @Override
-            public boolean isStop() {
-                return isGameStop();
-            }
-        }));
+        seedGenerator.initial();
+        snake.initial();
         gameOver = false;
-        gameWin = false;
         gameStop = false;
+    }
+
+    @Override
+    public void finish() {
+        eatenSeeds = 0;
+        clear();
+        snake.clear();
     }
 }

@@ -1,4 +1,7 @@
-package gameUI;
+package gameLibrary.gameUI;
+
+import gameLibrary.gameEngine.level.LevelHandler;
+import snake.SnakeLevel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -7,6 +10,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class GameHome extends JPanel {
@@ -19,6 +24,8 @@ public class GameHome extends JPanel {
     public GameHome(String backgroundPath, int width, int height) {
         this.width = width;
         this.height = height;
+
+        loadLevels();
 
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
@@ -48,6 +55,15 @@ public class GameHome extends JPanel {
             }
         });
         add(run, new GridBagConstraints());
+    }
+
+    private void loadLevels() {
+        List<SnakeLevel> levels = new ArrayList<>();
+        levels.add(new SnakeLevel(1, 4));
+        levels.add(new SnakeLevel(15, 4));
+        levels.add(new SnakeLevel(20, 3));
+        levels.add(new SnakeLevel(25, 3));
+        LevelHandler.<SnakeLevel>getLevelHandler().addAllLevels(levels);
     }
 
 

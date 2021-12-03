@@ -1,6 +1,6 @@
 package gameObjects;
 
-import gameEngine.Sprite;
+import gameLibrary.gameEngine.gameObject.Sprite;
 
 public class Seed extends Sprite {
 

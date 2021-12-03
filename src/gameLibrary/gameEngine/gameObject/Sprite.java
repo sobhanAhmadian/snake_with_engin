@@ -1,4 +1,6 @@
-package gameEngine;
+package gameLibrary.gameEngine.gameObject;
+
+import gameLibrary.gameEngine.Util;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

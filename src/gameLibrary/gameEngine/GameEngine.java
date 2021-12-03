@@ -1,10 +1,10 @@
-package gameEngine;
+package gameLibrary.gameEngine;
 
-import gameUI.dialogue.GameOverDialog;
-import gameUI.dialogue.GameWinDialog;
+import gameLibrary.gameEngine.gameObject.GameObject;
+import gameLibrary.gameUI.dialogue.GameOverDialog;
+import gameLibrary.gameUI.dialogue.GameWinDialog;
 
 import javax.sound.sampled.*;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public abstract class GameEngine extends Game {
 
-    private static final long DELAY = 5;
+    private long delay = 3;
     private final List<GameObject> gameObjects;
     private GameListener gameListener;
     private int width;
@@ -26,6 +26,7 @@ public abstract class GameEngine extends Game {
     private final String gameOverAudioPath;
     private final String gameWinAudioPath;
     private final String gameAudioPath;
+    private WinCallback winCallback;
 
     public GameEngine(int width, int height, Color backgroundColor, String gameOverAudioPath, String gameWinAudioPath, String gameAudioPath) {
 
@@ -80,7 +81,7 @@ public abstract class GameEngine extends Game {
             }
 
             timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = DELAY - timeDiff;
+            sleep = delay - timeDiff;
             if (sleep < 0) {
                 sleep = 2;
             }
@@ -115,6 +116,10 @@ public abstract class GameEngine extends Game {
 
     protected abstract void initialGame();
 
+    public interface WinCallback {
+        void goToNextLevel();
+    }
+
     private void showGameWinDialog() {
 
         repaint();
@@ -122,8 +127,12 @@ public abstract class GameEngine extends Game {
         clip_for_gameWin.start();
         new GameWinDialog(
                 this,
-                actionEvent -> System.out.println("home"), // TODO: 11/15/21  
-                actionEvent -> System.out.println("next level") // TODO: 11/15/21  
+                actionEvent -> {
+                    if (getHomeCallback() != null) getHomeCallback().goToHome();
+                },
+                actionEvent -> {
+                    if (winCallback != null) winCallback.goToNextLevel();
+                }
         );
     }
 
@@ -185,6 +194,10 @@ public abstract class GameEngine extends Game {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
+    }
+
+    protected void clear() {
+        gameObjects.clear();
     }
 
     private class KeyHandler extends KeyAdapter {
@@ -275,5 +288,9 @@ public abstract class GameEngine extends Game {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public void setDelay(long delay) {
+        this.delay = delay;
     }
 }

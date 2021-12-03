@@ -1,4 +1,4 @@
-package gameUI.dialogue;
+package gameLibrary.gameUI.dialogue;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -11,7 +11,7 @@ public class GameWinDialog extends Dialog {
                 "",
                 "You Have Done a Great Gob!",
                 350,
-                "/gameEngine/res/winner.png",
+                "/gameLibrary/gameEngine/res/winner.png",
                 "Home",
                 "Next Level",
                 homeListener,

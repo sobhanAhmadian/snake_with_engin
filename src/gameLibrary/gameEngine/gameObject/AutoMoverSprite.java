@@ -1,4 +1,4 @@
-package gameEngine;
+package gameLibrary.gameEngine.gameObject;
 
 public class AutoMoverSprite extends Sprite{
 

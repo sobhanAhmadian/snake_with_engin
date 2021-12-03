@@ -1,6 +1,6 @@
 package snake;
 
-import gameEngine.GameListener;
+import gameLibrary.gameEngine.GameListener;
 import gameObjects.Bead;
 
 public class SnakeGameListener implements GameListener {

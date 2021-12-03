@@ -1,7 +1,5 @@
-package gameEngine;
+package gameLibrary.gameEngine;
 
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

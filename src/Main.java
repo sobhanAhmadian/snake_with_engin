@@ -1,4 +1,4 @@
-import gameEngine.GameEngine;
+import gameLibrary.gameEngine.GameEngine;
 import snake.SnakeGame;
 
 import javax.swing.*;

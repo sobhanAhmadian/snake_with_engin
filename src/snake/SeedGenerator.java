@@ -22,7 +22,9 @@ public class SeedGenerator {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         random = new Random();
+    }
 
+    public void initial() {
         seed = new Seed();
         seed.setX(100);
         seed.setY(100);

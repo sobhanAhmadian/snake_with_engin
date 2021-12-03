@@ -16,7 +16,9 @@ public class Snake {
     public Snake(Callback callback) {
         this.callback = callback;
         beads = new ArrayList<>();
+    }
 
+    public void initial() {
         Bead head = new Bead("/res/head.png", Bead.Type.HEAD, null);
         head.setX(SnakeGame.START_X + 10);
         head.setY(SnakeGame.START_Y);
@@ -120,6 +122,10 @@ public class Snake {
 
         }
         return false;
+    }
+
+    public void clear() {
+        beads.clear();
     }
 
     interface Callback {

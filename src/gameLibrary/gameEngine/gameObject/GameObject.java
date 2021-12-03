@@ -1,4 +1,4 @@
-package gameEngine;
+package gameLibrary.gameEngine.gameObject;
 
 import java.awt.*;
 

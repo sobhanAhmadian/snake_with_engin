@@ -1,4 +1,4 @@
-package gameUI.dialogue;
+package gameLibrary.gameUI.dialogue;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -57,7 +57,7 @@ public class Dialog extends JFrame {
 
         textLabel = new JLabel(text);
 
-        Icon icon = new ImageIcon(getClass().getResource(iconPath));
+        Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(iconPath)));
         JLabel imageLabel = new JLabel();
         imageLabel.setIcon(icon);
 
@@ -97,7 +97,7 @@ public class Dialog extends JFrame {
     private void loadFont() {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT,
-                    Objects.requireNonNull(getClass().getResourceAsStream("/gameEngine/res/comics.ttf"))).deriveFont(18f);
+                    Objects.requireNonNull(getClass().getResourceAsStream("/gameLibrary/gameEngine/res/comics.ttf"))).deriveFont(18f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
         } catch (IOException | FontFormatException e) {

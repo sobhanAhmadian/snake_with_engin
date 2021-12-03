@@ -1,4 +1,4 @@
-package gameUI.dialogue;
+package gameLibrary.gameUI.dialogue;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -10,7 +10,7 @@ public class GameOverDialog extends Dialog {
                 "",
                 "Sorry You Are Game Over",
                 350,
-                "/gameEngine/res/game_over.png",
+                "/gameLibrary/gameEngine/res/game_over.png",
                 "Exit",
                 "Repeat",
                 actionEvent -> System.exit(0),

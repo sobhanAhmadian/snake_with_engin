@@ -1,11 +1,11 @@
-package gameUI;
+package gameLibrary.gameUI;
 
-import gameEngine.Game;
+import gameLibrary.gameEngine.Game;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GameFrame extends JFrame {
+public class GameFrame extends JFrame implements Game.HomeCallback{
 
     private Game game;
     private GameHome gameHome;
@@ -13,7 +13,9 @@ public class GameFrame extends JFrame {
     public GameFrame(int width, int height,
                      Game game, GameHome gameHome) {
         this.game = game;
+        this.game.setHomeCallback(this);
         this.gameHome = gameHome;
+
         setSize(width, height);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
@@ -31,5 +33,11 @@ public class GameFrame extends JFrame {
         game.start();
     }
 
-
+    @Override
+    public void goToHome() {
+        remove(game);
+        game.finish();
+        add(gameHome);
+        gameHome.repaint();
+    }
 }

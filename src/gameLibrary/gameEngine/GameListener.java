@@ -1,4 +1,4 @@
-package gameEngine;
+package gameLibrary.gameEngine;
 
 public interface GameListener {
 
