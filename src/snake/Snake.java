@@ -124,6 +124,14 @@ public class Snake {
         return false;
     }
 
+    public boolean isHeadOut(int width, int height) {
+        if (getHead().getX() < 0) return true;
+        if (getHead().getY() < 0) return true;
+        if (getHead().getX() + getHead().getWidth() > width) return true;
+        if (getHead().getY() + getHead().getHeight() > height) return true;
+        return false;
+    }
+
     public void clear() {
         beads.clear();
     }

@@ -15,8 +15,10 @@ public class SnakeGame extends GameEngine {
     private SeedGenerator seedGenerator;
     private boolean gameStop;
     private boolean gameOver;
-    private final SnakeLevel snakeLevel;
+    private SnakeLevel snakeLevel;
     private int eatenSeeds;
+    private int width;
+    private int height;
 
     public SnakeGame(int width, int height) {
         super(width, height,
@@ -24,6 +26,8 @@ public class SnakeGame extends GameEngine {
                 "/res/game_over_audio.wav",
                 "/res/game_win_audio.wav",
                 "/res/game_audio.wav");
+        this.width = width;
+        this.height = height;
 
         snake = new Snake(this::addGameObject);
         seedGenerator = new SeedGenerator(this::addGameObject, snake::beadPositions, getWidth(), getHeight());
@@ -39,14 +43,24 @@ public class SnakeGame extends GameEngine {
             }
         }));
 
-        snakeLevel = LevelHandler.<SnakeLevel>getLevelHandler().getCurrentLevel();
-        setDelay(snakeLevel.getDelay());
+        setNextLevelCallback(new NextLevelCallback() {
+            @Override
+            public void goToNextLevel() {
+                finish();
+                start();
+            }
+
+            @Override
+            public void loadNextLevel() {
+                LevelHandler.<SnakeLevel>getLevelHandler().goToNextLevel();
+            }
+        });
     }
 
     @Override
     protected void updateGame() {
 
-        if (snake.hasHeadCollisionWithBody())
+        if (snake.hasHeadCollisionWithBody() || snake.isHeadOut(width, height))
             gameOver = true;
 
         if (seedGenerator.checkSeedCollision(snake.getHead().getX(), snake.getHead().getY())) {
@@ -77,6 +91,8 @@ public class SnakeGame extends GameEngine {
         snake.initial();
         gameOver = false;
         gameStop = false;
+        snakeLevel = LevelHandler.<SnakeLevel>getLevelHandler().getCurrentLevel();
+        setDelay(snakeLevel.getDelay());
     }
 
     @Override

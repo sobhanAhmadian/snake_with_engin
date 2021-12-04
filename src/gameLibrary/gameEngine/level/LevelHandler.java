@@ -10,7 +10,7 @@ public class LevelHandler<T extends Level> {
     private int currentLevel;
 
     private LevelHandler() {
-       levels = new ArrayList<>();
+        levels = new ArrayList<>();
     }
 
     public static <E extends Level> LevelHandler<E> getLevelHandler() {
@@ -28,5 +28,9 @@ public class LevelHandler<T extends Level> {
 
     public void addAllLevels(List<T> levels) {
         this.levels.addAll(levels);
+    }
+
+    public void goToNextLevel() {
+        currentLevel++;
     }
 }

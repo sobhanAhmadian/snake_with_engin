@@ -60,12 +60,11 @@ public class GameHome extends JPanel {
     private void loadLevels() {
         List<SnakeLevel> levels = new ArrayList<>();
         levels.add(new SnakeLevel(1, 4));
-        levels.add(new SnakeLevel(15, 4));
-        levels.add(new SnakeLevel(20, 3));
-        levels.add(new SnakeLevel(25, 3));
+        levels.add(new SnakeLevel(2, 4));
+        levels.add(new SnakeLevel(3, 3));
+        levels.add(new SnakeLevel(4, 3));
         LevelHandler.<SnakeLevel>getLevelHandler().addAllLevels(levels);
     }
-
 
     @Override
     public void paintComponent(Graphics g) {

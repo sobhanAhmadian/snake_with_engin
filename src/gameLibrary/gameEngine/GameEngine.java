@@ -26,7 +26,7 @@ public abstract class GameEngine extends Game {
     private final String gameOverAudioPath;
     private final String gameWinAudioPath;
     private final String gameAudioPath;
-    private WinCallback winCallback;
+    private NextLevelCallback nextLevelCallback;
 
     public GameEngine(int width, int height, Color backgroundColor, String gameOverAudioPath, String gameWinAudioPath, String gameAudioPath) {
 
@@ -116,8 +116,10 @@ public abstract class GameEngine extends Game {
 
     protected abstract void initialGame();
 
-    public interface WinCallback {
+    public interface NextLevelCallback {
         void goToNextLevel();
+
+        void loadNextLevel();
     }
 
     private void showGameWinDialog() {
@@ -125,13 +127,14 @@ public abstract class GameEngine extends Game {
         repaint();
         clip_for_gaming.stop();
         clip_for_gameWin.start();
+        if (nextLevelCallback != null) nextLevelCallback.loadNextLevel();
         new GameWinDialog(
                 this,
                 actionEvent -> {
                     if (getHomeCallback() != null) getHomeCallback().goToHome();
                 },
                 actionEvent -> {
-                    if (winCallback != null) winCallback.goToNextLevel();
+                    if (nextLevelCallback != null) nextLevelCallback.goToNextLevel();
                 }
         );
     }
@@ -149,14 +152,7 @@ public abstract class GameEngine extends Game {
     }
 
     private void repeatGame() {
-
-        clip_for_gaming.close();
-        clip_for_gameWin.close();
-        clip_for_gameOver.close();
-
-        gameObjects.clear();
-        gameListener = null;
-
+        finish();
         start();
     }
 
@@ -292,5 +288,9 @@ public abstract class GameEngine extends Game {
 
     public void setDelay(long delay) {
         this.delay = delay;
+    }
+
+    public void setNextLevelCallback(NextLevelCallback nextLevelCallback) {
+        this.nextLevelCallback = nextLevelCallback;
     }
 }
