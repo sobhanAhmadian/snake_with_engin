@@ -25,8 +25,6 @@ public class GameHome extends JPanel {
         this.width = width;
         this.height = height;
 
-        loadLevels();
-
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
         } catch (IOException e) {
@@ -55,15 +53,6 @@ public class GameHome extends JPanel {
             }
         });
         add(run, new GridBagConstraints());
-    }
-
-    private void loadLevels() {
-        List<SnakeLevel> levels = new ArrayList<>();
-        levels.add(new SnakeLevel(1, 4));
-        levels.add(new SnakeLevel(2, 4));
-        levels.add(new SnakeLevel(3, 3));
-        levels.add(new SnakeLevel(4, 3));
-        LevelHandler.<SnakeLevel>getLevelHandler().addAllLevels(levels);
     }
 
     @Override
