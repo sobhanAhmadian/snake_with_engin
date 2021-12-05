@@ -22,9 +22,9 @@ public class Dialog extends JFrame {
 
     public Dialog(Component parent, String title, String text, int width, String iconPath,
                   String leftButtonText, String rightButtonText,
-                  ActionListener leftListener, ActionListener rightListener) {
+                  ActionListener leftListener, ActionListener rightListener, String fontPath) {
 
-        loadFont();
+        loadFont(fontPath);
 
         setSize(width, 180);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -94,10 +94,10 @@ public class Dialog extends JFrame {
         contentPanel.setBackground(backgroundColor);
     }
 
-    private void loadFont() {
+    private void loadFont(String fontPath) {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT,
-                    Objects.requireNonNull(getClass().getResourceAsStream("/gameLibrary/gameEngine/res/comics.ttf"))).deriveFont(18f);
+                    Objects.requireNonNull(getClass().getResourceAsStream(fontPath))).deriveFont(18f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
         } catch (IOException | FontFormatException e) {

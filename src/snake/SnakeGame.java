@@ -25,7 +25,10 @@ public class SnakeGame extends GameEngine {
                 new Color(33, 33, 33),
                 "/res/game_over_audio.wav",
                 "/res/game_win_audio.wav",
-                "/res/game_audio.wav");
+                "/res/game_audio.wav",
+                "/res/winner.png",
+                "/res/game_over.png",
+                "/res/comics.ttf");
         this.width = width;
         this.height = height;
 

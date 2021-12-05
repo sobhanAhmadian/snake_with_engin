@@ -21,7 +21,7 @@ public class GameHome extends JPanel {
     private int height;
     private Runner runner;
 
-    public GameHome(String backgroundPath, int width, int height) {
+    public GameHome(String backgroundPath, String runIconPath, String runClickedIconPath, int width, int height) {
         this.width = width;
         this.height = height;
 
@@ -35,8 +35,8 @@ public class GameHome extends JPanel {
 
         setLayout(new GridBagLayout());
         JLabel run = new JLabel();
-        Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/run.png")));
-        Icon clickedIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/res/run_clicked.png")));
+        Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(runIconPath)));
+        Icon clickedIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(runClickedIconPath)));
         run.setIcon(icon);
         run.setSize(128, 128);
         run.addMouseListener(new MouseAdapter() {

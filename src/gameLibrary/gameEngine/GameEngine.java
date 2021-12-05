@@ -26,9 +26,14 @@ public abstract class GameEngine extends Game {
     private final String gameOverAudioPath;
     private final String gameWinAudioPath;
     private final String gameAudioPath;
+    private final String gameWinIconPath;
+    private final String gameOverIconPath;
+    private final String fontPath;
     private NextLevelCallback nextLevelCallback;
 
-    public GameEngine(int width, int height, Color backgroundColor, String gameOverAudioPath, String gameWinAudioPath, String gameAudioPath) {
+    public GameEngine(int width, int height, Color backgroundColor,
+                      String gameOverAudioPath, String gameWinAudioPath, String gameAudioPath,
+                      String gameWinIconPath, String gameOverIconPath, String fontPath) {
 
         this.width = width;
         this.height = height;
@@ -36,6 +41,9 @@ public abstract class GameEngine extends Game {
         this.gameOverAudioPath = gameOverAudioPath;
         this.gameWinAudioPath = gameWinAudioPath;
         this.gameAudioPath = gameAudioPath;
+        this.gameWinIconPath = gameWinIconPath;
+        this.gameOverIconPath = gameOverIconPath;
+        this.fontPath = fontPath;
 
         setVisible(true);
         setSize(width, height);
@@ -135,7 +143,9 @@ public abstract class GameEngine extends Game {
                 },
                 actionEvent -> {
                     if (nextLevelCallback != null) nextLevelCallback.goToNextLevel();
-                }
+                },
+                gameWinIconPath,
+                fontPath
         );
     }
 
@@ -147,7 +157,9 @@ public abstract class GameEngine extends Game {
 
         new GameOverDialog(
                 this,
-                actionEvent -> repeatGame()
+                actionEvent -> repeatGame(),
+                gameOverIconPath,
+                fontPath
         );
     }
 
