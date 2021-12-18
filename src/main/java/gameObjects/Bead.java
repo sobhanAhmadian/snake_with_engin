@@ -1,6 +1,6 @@
 package gameObjects;
 
-import gameLibrary.gameEngine.gameObject.AutoMoverSprite;
+import gameEngine.gameObject.AutoMoverSprite;
 import snake.Snake;
 import snake.SnakeGame;
 

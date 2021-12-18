@@ -1,6 +1,7 @@
 package snake;
 
-import gameLibrary.gameEngine.level.Level;
+
+import gameEngine.level.Level;
 
 public class SnakeLevel extends Level {
 

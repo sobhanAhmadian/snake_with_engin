@@ -19,7 +19,7 @@ public class Snake {
     }
 
     public void initial() {
-        Bead head = new Bead("/res/head.png", Bead.Type.HEAD, null);
+        Bead head = new Bead("/head.png", Bead.Type.HEAD, null);
         head.setX(SnakeGame.START_X + 10);
         head.setY(SnakeGame.START_Y);
         head.setDirection(Bead.Direction.UP);
@@ -28,7 +28,7 @@ public class Snake {
     }
 
     public void addBead() {
-        Bead bead = new Bead("/res/bead.png", Bead.Type.BODY, getEndBead());
+        Bead bead = new Bead("/bead.png", Bead.Type.BODY, getEndBead());
 
         Bead parentBead = getEndBead();
         bead.setDirection(parentBead.getDirection());

@@ -1,7 +1,7 @@
 package snake;
 
-import gameLibrary.gameEngine.GameEngine;
-import gameLibrary.gameEngine.level.LevelHandler;
+import gameEngine.GameEngine;
+import gameEngine.level.LevelHandler;
 
 import java.awt.*;
 
@@ -23,12 +23,12 @@ public class SnakeGame extends GameEngine {
     public SnakeGame(int width, int height) {
         super(width, height,
                 new Color(33, 33, 33),
-                "/res/game_over_audio.wav",
-                "/res/game_win_audio.wav",
-                "/res/game_audio.wav",
-                "/res/winner.png",
-                "/res/game_over.png",
-                "/res/comics.ttf");
+                "/game_over_audio.wav",
+                "/game_win_audio.wav",
+                "/game_audio.wav",
+                "/winner.png",
+                "/game_over.png",
+                "/comics.ttf");
         this.width = width;
         this.height = height;
 

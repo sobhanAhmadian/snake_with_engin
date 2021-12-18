@@ -1,11 +1,11 @@
 package gameObjects;
 
-import gameLibrary.gameEngine.gameObject.Sprite;
+import gameEngine.gameObject.Sprite;
 
 public class Seed extends Sprite {
 
     public Seed() {
-        super("/res/apple.png");
+        super("/apple.png");
     }
 
     @Override
